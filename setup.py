@@ -19,18 +19,18 @@ def get_version(rel_path: str) -> str:
 
 
 setup(
-    name='chris-plugin-template',
-    version=get_version('app.py'),
-    description='A ChRIS DS plugin template',
-    author='FNNDSC',
-    author_email='dev@babyMRI.org',
-    url='https://github.com/FNNDSC/python-chrisapp-template',
-    py_modules=['app'],
-    install_requires=['chris_plugin'],
+    name='mesh-volume-enclosed',
+    version=get_version('surfvol/__init__.py'),
+    description='Calculate the volume enclosed by MRI .obj surfaces using pyvista',
+    author='Jennings Zhang',
+    author_email='Jennings.Zhang@childrens.harvard.edu',
+    url='https://github.com/FNNDSC/pl-pyvista-volume',
+    packages=['surfvol'],
+    install_requires=['chris_plugin', 'pyvista', 'vtk', 'pybicpl==0.5.0'],
     license='MIT',
     entry_points={
         'console_scripts': [
-            'commandname = app:main'
+            'surfvol = surfvol.__main__:main'
         ]
     },
     classifiers=[

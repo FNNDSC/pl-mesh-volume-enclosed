@@ -1,19 +1,16 @@
-# Python version can be changed, e.g.
-# FROM python:3.8
-# FROM docker.io/fnndsc/conda:python3.10.2-cuda11.6.0
-FROM docker.io/python:3.11.0-slim-bullseye
+FROM docker.io/fnndsc/conda:python3.10.6
 
 LABEL org.opencontainers.image.authors="FNNDSC <dev@babyMRI.org>" \
-      org.opencontainers.image.title="ChRIS Plugin Title" \
-      org.opencontainers.image.description="A ChRIS plugin that..."
+      org.opencontainers.image.title="pl-pyvista-volume" \
+      org.opencontainers.image.description="A ChRIS plugin to calculate the volume enclosed by MRI .obj surfaces using pyvista"
 
-WORKDIR /usr/local/src/app
+# install dependencies using conda for multi-arch support
+RUN conda install -c conda-forge vtk=9.2.5 pyvista=0.37.0
 
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-
+# install Python package
+WORKDIR /usr/local/src/pl-pyvista-volume
 COPY . .
 ARG extras_require=none
 RUN pip install ".[${extras_require}]"
 
-CMD ["commandname", "--help"]
+CMD ["surfvol", "--help"]
