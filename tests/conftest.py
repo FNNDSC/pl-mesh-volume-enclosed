@@ -1,10 +1,8 @@
-import os
 from pathlib import Path
 
 import pytest
 
-PWD = Path(os.getcwd())
-EXAMPLES_DIR_LIVE = PWD / '..' / 'examples'
+EXAMPLES_DIR_LIVE = Path(__file__).parent.parent / 'examples'
 
 
 @pytest.fixture
