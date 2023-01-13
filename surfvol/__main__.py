@@ -35,7 +35,7 @@ def main(options: Namespace, inputdir: Path, outputdir: Path):
     for input_file, output_file in mapper:
         vol = calculate_volume(input_file)
         output_file.write_text(str(vol))
-        print(f"{input_file} {vol}")
+        print(f"{input_file} {vol}", flush=True)
 
 
 if __name__ == '__main__':
