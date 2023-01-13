@@ -48,3 +48,21 @@ pip install -e .
 ```shell
 pytest
 ```
+
+## Notes
+
+### Multiprocessing
+
+`vtk` and `pyvista` require multiprocessing (instead of multithreading) for concurrency. On 8 cores:
+
+multiprocessing:
+
+    real    0m38.632s
+    user    2m31.680s
+    sys     0m7.660s
+
+multithreading:
+
+    real    2m43.133s
+    user    2m28.311s
+    sys     0m5.364s

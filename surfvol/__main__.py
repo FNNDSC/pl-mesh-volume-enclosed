@@ -1,8 +1,9 @@
 #!/usr/bin/env python
-
+import os
 import sys
 from pathlib import Path
 from argparse import ArgumentParser, Namespace, ArgumentDefaultsHelpFormatter
+from concurrent.futures import ProcessPoolExecutor
 
 from chris_plugin import chris_plugin, PathMapper
 from surfvol import __version__, DISPLAY_TITLE
@@ -32,10 +33,19 @@ def main(options: Namespace, inputdir: Path, outputdir: Path):
         glob=options.pattern,
         suffix='.volume.txt'
     )
-    for input_file, output_file in mapper:
-        vol = calculate_volume(input_file)
-        output_file.write_text(str(vol))
-        print(f"{input_file} -> {output_file} ({vol})", flush=True)
+
+    with ProcessPoolExecutor(max_workers=len(os.sched_getaffinity(0))) as pool:
+        results = pool.map(process, mapper)
+
+    for _ in results:
+        pass
+
+
+def process(t: tuple[Path, Path]):
+    input_file, output_file = t
+    vol = calculate_volume(input_file)
+    output_file.write_text(str(vol))
+    print(f"{input_file} -> {output_file} ({vol})", flush=True)
 
 
 if __name__ == '__main__':
