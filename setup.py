@@ -26,7 +26,7 @@ setup(
     author_email='Jennings.Zhang@childrens.harvard.edu',
     url='https://github.com/FNNDSC/pl-pyvista-volume',
     packages=['surfvol'],
-    install_requires=['chris_plugin', 'pyvista', 'vtk', 'pybicpl==0.5.0'],
+    install_requires=['chris_plugin', 'pyvista', 'vtk', 'pybicpl==0.5.1'],
     license='MIT',
     entry_points={
         'console_scripts': [
